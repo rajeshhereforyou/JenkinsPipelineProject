@@ -2,8 +2,6 @@ pipeline {
     agent { label 'linuxslave' }
 
     stages {
-
-
         stage('Multiple SCM checkout ') {
             steps {
                 echo 'SCM checkout..'
@@ -14,13 +12,8 @@ pipeline {
 
         stage('Setting App Version'){
             steps {
-                startWithPrint(){
-                    echo 'Setting App Version'
-                }
-                setAppVersion(){
-                    //VersionNumber projectStartDate: '2018-12-19', versionNumberString: '${MAJOR_MINOR_VERSION}.${BUILD_DATE_FORMATTED, "yyyyMMdd"}.${BUILDS_TODAY}', versionPrefix: '', worstResultForIncrement: 'FAILURE'
-                    def version = VersionNumber('${BUILD_DATE_FORMATTED, \"yy-MM-dd\"}-${BUILDS_TODAY, XX}')
-                }
+                //VersionNumber projectStartDate: '2018-12-19', versionNumberString: '${MAJOR_MINOR_VERSION}.${BUILD_DATE_FORMATTED, "yyyyMMdd"}.${BUILDS_TODAY}', versionPrefix: '', worstResultForIncrement: 'FAILURE'
+                def version = VersionNumber('${BUILD_DATE_FORMATTED, \"yy-MM-dd\"}-${BUILDS_TODAY, XX}')
             }
         }
 
