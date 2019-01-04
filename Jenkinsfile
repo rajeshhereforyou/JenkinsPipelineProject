@@ -19,7 +19,7 @@ pipeline {
                  //VersionNumber projectStartDate: '2018-12-19', versionNumberString: '${MAJOR_MINOR_VERSION}', versionPrefix: '', worstResultForIncrement: 'FAILURE'
 
                  step{
-                 VersionNumber projectStartDate: '', versionNumberString: '${BUILD_NUMBER}', versionPrefix: '', worstResultForIncrement: 'FAILURE'
+                 VersionNumber versionNumberString: '${BUILD_NUMBER}', versionPrefix: '', worstResultForIncrement: 'FAILURE'
                  }
             }
         }
