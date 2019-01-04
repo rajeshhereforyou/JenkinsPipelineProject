@@ -2,7 +2,7 @@ pipeline {
     agent { label 'linuxslave' }
 
     environment {
-      VERSION = VersionNumber([
+      APP_VERSION = VersionNumber([
         versionNumberString: '${MAJOR_MINOR_VERSION}.${BUILD_DATE_FORMATTED, "yyyyMMdd"}.${BUILDS_TODAY}',
         versionPrefix: '',
         worstResultForIncrement: 'FAILURE'
@@ -20,7 +20,7 @@ pipeline {
 
         stage('Setting App Version'){
             steps {
-                sh 'echo "$VERSION"';
+                sh 'echo "$APP_VERSION"';
             }
         }
 
