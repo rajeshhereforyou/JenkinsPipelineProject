@@ -30,13 +30,13 @@ pipeline {
                 echo 'Tagging..'
 
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GitHubCredentials',
-                usernameVariable: 'USERNAME', passwordVariable: 'PASSWORD']]) {
-                    sh 'echo uname=$USERNAME pwd=$PASSWORD'
+                usernameVariable: 'gitUser', passwordVariable: 'gitPwd']]) {
+                    sh 'echo uname=$gitUser pwd=$gitPwd'
                  }
 
-                //git config --global user.name $gitUser
-                //git tag -a ${APP_VERSION} -m "Version ${APP_VERSION}"
-               // git push https://${gitUser}:${gitPwd}@${SERVICE_REPO_URL##*//}  --tags
+                git config --global user.name $gitUser
+                git tag -a ${APP_VERSION} -m "Version ${APP_VERSION}"
+                git push https://${gitUser}:${gitPwd}@${SERVICE_REPO_URL##*//}  --tags
             }
         }
 
