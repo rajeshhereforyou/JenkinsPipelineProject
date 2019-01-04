@@ -1,6 +1,13 @@
 pipeline {
     agent { label 'linuxslave' }
 
+    environment {
+      VERSION = VersionNumber([
+        versionNumberString : '${BUILD_YEAR}.${BUILD_MONTH}.${BUILD_ID}',
+        projectStartDate : '2014-05-19'
+      ]);
+    }
+
     stages {
         stage('Multiple SCM checkout ') {
             steps {
@@ -12,8 +19,7 @@ pipeline {
 
         stage('Setting App Version'){
             steps {
-                def versionNumber = VersionNumber('${BUILD_DATE_FORMATTED, \"yy-MM-dd\"}-${BUILDS_TODAY, XX}')
-                echo "VersionNumber2"
+                sh 'echo "$VERSION"';
             }
         }
 
