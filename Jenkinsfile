@@ -29,8 +29,7 @@ pipeline {
             steps {
                 echo 'Tagging..'
 
-                def var1 = "$SERVICE_REPO_URL"
-                echo "$var1"
+                sh 'echo "$SERVICE_REPO_URL"'
 
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GitHubCredentials',
                 usernameVariable: 'gitUser', passwordVariable: 'gitPwd']]) {
