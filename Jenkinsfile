@@ -12,8 +12,14 @@ pipeline {
 
         stage('Setting App Version'){
             steps {
-                def versionNumber = VersionNumber versionNumberString: '${BUILDS_ALL_TIME}', versionPrefix: '1.0.', buildsAllTime: '12'
-                echo "VersionNumber: ${versionNumber}"
+                //def versionNumber = VersionNumber versionNumberString: '${BUILDS_ALL_TIME}', versionPrefix: '1.0.', buildsAllTime: '12'
+
+                printLine(){
+                    echo "VersionNumber"
+                }
+                printLine2(){
+                     echo "VersionNumber2"
+                }
             }
         }
 
