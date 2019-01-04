@@ -3,11 +3,18 @@ pipeline {
 
     stages {
 
+
         stage('Multiple SCM checkout ') {
             steps {
                 echo 'SCM checkout..'
                 checkout([$class: 'GitSCM', branches: [[name: '${SERVICE_REPO_BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHubCredentials', url: '${SERVICE_REPO_URL}']]])
                 checkout([$class: 'GitSCM', branches: [[name: '${BUILDSCRIPTS_REPO_BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '${BUILDSCRIPTS_DIR}']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHubCredentials', url: '${BUILDSCRIPTS_REPO_URL}']]])
+            }
+        }
+
+        stage('Setting App Version'){
+            steps {
+                VersionNumber projectStartDate: '2018-12-19', versionNumberString: '${MAJOR_MINOR_VERSION}.${BUILD_DATE_FORMATTED, "yyyyMMdd"}.${BUILDS_TODAY}', versionPrefix: '', worstResultForIncrement: 'FAILURE'
             }
         }
 
