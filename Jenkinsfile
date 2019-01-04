@@ -24,13 +24,7 @@ pipeline {
             }
         }
 
-        stage('Gradle build') {
-            steps {
-                echo 'Building..'
 
-                sh './gradlew build -x test'
-            }
-        }
         stage('Tagging') {
             steps {
                 echo 'Tagging..'
@@ -45,6 +39,14 @@ pipeline {
                // git push https://${gitUser}:${gitPwd}@${SERVICE_REPO_URL##*//}  --tags
             }
         }
+
+        stage('Gradle build') {
+                    steps {
+                        echo 'Building..'
+
+                        sh './gradlew build -x test'
+                    }
+                }
         stage('Deploy') {
             steps {
                 echo 'Deploying....'
