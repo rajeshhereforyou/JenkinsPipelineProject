@@ -31,7 +31,7 @@ pipeline {
 
                 sh "echo 'theURL is: ${SERVICE_REPO_URL}'"
 
-                sh 'echo "$SERVICE_REPO_URL"'
+                sh "echo 'trimmed URL is : ${SERVICE_REPO_URL##*//}'"
 
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GitHubCredentials',
                 usernameVariable: 'gitUser', passwordVariable: 'gitPwd']]) {
