@@ -29,6 +29,8 @@ pipeline {
             steps {
                 echo 'Tagging..'
 
+                def var1 = ${SERVICE_REPO_URL}
+
                 sh "echo 'theURL is: ${SERVICE_REPO_URL}'"
 
                 sh "echo 'trimmed URL is : ${SERVICE_REPO_URL##*//}'"
