@@ -29,10 +29,13 @@ pipeline {
             steps {
                 echo 'Tagging..'
 
+                def var1 = "$SERVICE_REPO_URL"
+                echo "$var1"
+
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GitHubCredentials',
                 usernameVariable: 'gitUser', passwordVariable: 'gitPwd']]) {
                     sh 'echo uname=$gitUser pwd=$gitPwd'
-                    sh 'echo $SERVICE_REPO_URL##*//'
+                    //sh 'echo $SERVICE_REPO_URL##*//'
 
                     //sh 'git config --global user.name $gitUser'
                     //sh 'git tag -a ${APP_VERSION} -m "Version ${APP_VERSION}"'
