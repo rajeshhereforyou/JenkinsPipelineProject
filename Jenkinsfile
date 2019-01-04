@@ -3,8 +3,9 @@ pipeline {
 
     environment {
       VERSION = VersionNumber([
-        versionNumberString : '${BUILD_YEAR}.${BUILD_MONTH}.${BUILD_ID}',
-        projectStartDate : '2014-05-19'
+        versionNumberString: '${MAJOR_MINOR_VERSION}.${BUILD_DATE_FORMATTED, "yyyyMMdd"}.${BUILDS_TODAY}',
+        versionPrefix: '',
+        worstResultForIncrement: 'FAILURE'
       ]);
     }
 
