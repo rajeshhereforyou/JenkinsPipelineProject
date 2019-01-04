@@ -38,8 +38,7 @@ pipeline {
                     //sh 'git tag -a ${APP_VERSION} -m "Version ${APP_VERSION}"'
                     //sh 'git push https://$gitUser:$gitPwd@${SERVICE_REPO_URL##*//}  --tags'
 
-                    sh 'def var1 = "${SERVICE_REPO_UR}"'
-                    sh "echo ${var1}"
+                    sh "echo ${SERVICE_REPO_URL##*//}"
                  }
 
 
