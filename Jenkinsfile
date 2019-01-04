@@ -26,11 +26,10 @@ pipeline {
 
 
         stage('Tagging') {
-
-            sh "echo 'theURL is: ${SERVICE_REPO_URL}'"
-
             steps {
                 echo 'Tagging..'
+
+                sh "echo 'theURL is: ${SERVICE_REPO_URL}'"
 
                 sh 'echo "$SERVICE_REPO_URL"'
 
