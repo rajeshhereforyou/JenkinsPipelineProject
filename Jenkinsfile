@@ -44,7 +44,7 @@ pipeline {
                     steps {
                         echo 'Building..'
 
-                        sh './gradlew build -x test'
+                       // sh './gradlew build -x test'
                     }
                 }
         stage('Deploy') {
