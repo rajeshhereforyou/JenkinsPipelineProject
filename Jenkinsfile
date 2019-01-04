@@ -12,7 +12,8 @@ pipeline {
 
         stage('Setting App Version'){
             steps {
-                VersionNumber projectStartDate: '', versionNumberString: '${MAJOR_MINOR_VERSION}.${BUILD_DATE_FORMATTED, "yyyyMMdd"}.${BUILDS_TODAY}', versionPrefix: '', worstResultForIncrement: 'FAILURE'
+                //VersionNumber projectStartDate: '', versionNumberString: '${MAJOR_MINOR_VERSION}.${BUILD_DATE_FORMATTED, "yyyyMMdd"}.${BUILDS_TODAY}', versionPrefix: '', worstResultForIncrement: 'FAILURE'
+                def version = VersionNumber('${BUILD_DATE_FORMATTED, \"yy-MM-dd\"}-${BUILDS_TODAY, XX}')
             }
         }
 
