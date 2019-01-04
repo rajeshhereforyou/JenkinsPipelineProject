@@ -1,5 +1,5 @@
 pipeline {
-    agent any
+    agent 1057jenkinslinuxagent01a.sapphirepri.com
 
     stages {
         stage('Build') {
