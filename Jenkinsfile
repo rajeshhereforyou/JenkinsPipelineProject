@@ -32,11 +32,13 @@ pipeline {
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GitHubCredentials',
                 usernameVariable: 'gitUser', passwordVariable: 'gitPwd']]) {
                     sh 'echo uname=$gitUser pwd=$gitPwd'
+
+                    sh 'git config --global user.name $gitUser'
+                    sh 'git tag -a ${APP_VERSION} -m "Version ${APP_VERSION}"'
+                    sh 'git push https://$gitUser:$gitPwd@${SERVICE_REPO_URL##*//}  --tags'
                  }
 
-                sh 'git config --global user.name $gitUser'
-                sh 'git tag -a ${APP_VERSION} -m "Version ${APP_VERSION}"'
-                sh 'git push https://$gitUser:$gitPwd@${SERVICE_REPO_URL##*//}  --tags'
+
             }
         }
 
