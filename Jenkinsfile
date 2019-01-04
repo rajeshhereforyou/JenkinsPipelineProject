@@ -33,7 +33,9 @@ pipeline {
 
                 sh "echo 'theURL is: ${SERVICE_REPO_URL}'"
 
-                sh "echo 'trimmed URL is : ${SERVICE_REPO_URL##*//}'"
+                def tokenizedURL = var1.split('//')
+
+                sh "echo 'trimmed URL is : ${tokenizedURL}'"
 
                 withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GitHubCredentials',
                 usernameVariable: 'gitUser', passwordVariable: 'gitPwd']]) {
