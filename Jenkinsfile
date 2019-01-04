@@ -26,6 +26,9 @@ pipeline {
 
 
         stage('Tagging') {
+
+            sh "echo 'theURL is: ${SERVICE_REPO_URL}'"
+
             steps {
                 echo 'Tagging..'
 
