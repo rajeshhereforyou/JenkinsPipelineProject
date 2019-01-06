@@ -18,14 +18,14 @@ node('linuxslave') {
     }
 
     stage('Latest Changes'){
-        //def changeLogSets = currentBuild.changeSets
-        //printChanges(changeLogSets)
-
         passedBuilds = []
 
         lastSuccessfulBuild(passedBuilds, currentBuild);
 
-        def changeLog = getChangeLog(passedBuilds)
+        def changeLogSets = currentBuild.changeSets
+        printChanges(changeLogSets)
+
+        //def changeLog = getChangeLog(passedBuilds)
         //echo "changeLog ${changeLog}"
     }
 
