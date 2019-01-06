@@ -36,7 +36,7 @@ node('linuxslave') {
             sh 'echo ${SERVICE_REPO_URL}'
             //https://github.com/rajeshhereforyou/myspringbootapp.git
 
-            tokens = "${SERVICE_REPO_URL}".tokenize('//')
+            tokens = "${SERVICE_REPO_URL}".tokenize('\/\/')
             part1 = tokens[0]
             part2 = tokens[1]
             part3 = tokens[2]
