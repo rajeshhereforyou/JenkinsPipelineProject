@@ -22,8 +22,9 @@ node('linuxslave') {
 
         lastSuccessfulBuild(passedBuilds, currentBuild);
 
-        def changeLogSets = currentBuild.changeSets
-        printChanges(changeLogSets)
+        for(int i=0; i<passedBuilds.size();i++){
+            print(passedBuilds[i]);
+        }
 
         //def changeLog = getChangeLog(passedBuilds)
         //echo "changeLog ${changeLog}"
@@ -45,20 +46,6 @@ node('linuxslave') {
     }*/
 }
 
-def printChanges(changeLogSets){
-    for (int i = 0; i < changeLogSets.size(); i++) {
-            def entries = changeLogSets[i].items
-            for (int j = 0; j < entries.length; j++) {
-                def entry = entries[j]
-                echo "${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}"
-                def files = new ArrayList(entry.affectedFiles)
-                for (int k = 0; k < files.size(); k++) {
-                    def file = files[k]
-                    echo "  ${file.editType.name} ${file.path}"
-                }
-            }
-        }
-}
 
 def lastSuccessfulBuild(passedBuilds, build) {
   if ((build != null) && (build.result != 'SUCCESS')) {
@@ -81,4 +68,20 @@ def getChangeLog(passedBuilds) {
         }
     }
     return log;
-  }
+}
+
+
+def printChanges(changeLogSets){
+    for (int i = 0; i < changeLogSets.size(); i++) {
+            def entries = changeLogSets[i].items
+            for (int j = 0; j < entries.length; j++) {
+                def entry = entries[j]
+                echo "${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}"
+                def files = new ArrayList(entry.affectedFiles)
+                for (int k = 0; k < files.size(); k++) {
+                    def file = files[k]
+                    echo "  ${file.editType.name} ${file.path}"
+                }
+            }
+        }
+}
