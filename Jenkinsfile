@@ -17,7 +17,7 @@ node('linuxslave') {
         checkout([$class: 'GitSCM', branches: [[name: '${BUILDSCRIPTS_REPO_BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '${BUILDSCRIPTS_DIR}']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHubCredentials', url: '${BUILDSCRIPTS_REPO_URL}']]])
     }
 
-    def changeLogSets = currentBuild.changeSets
+    def changeLogSets = currentBuild.changeSets.length
 
     stage('Latest Changes'){
         echo 'changeLogSets is '+changeLogSets
@@ -39,27 +39,3 @@ node('linuxslave') {
          }
     }*/
 }
-
-    def lastSuccessfulBuild(passedBuilds, build) {
-        if ((build != null) && (build.result != 'SUCCESS')) {
-            passedBuilds.add(build)
-            lastSuccessfulBuild(passedBuilds, build.getPreviousBuild())
-        }
-    }
-
-    @NonCPS
-    def getChangeLog(passedBuilds) {
-        def log = ""
-        for (int x = 0; x < passedBuilds.size(); x++) {
-            def currentBuild = passedBuilds[x];
-            def changeLogSets = currentBuild.rawBuild.changeSets
-            for (int i = 0; i < changeLogSets.size(); i++) {
-                def entries = changeLogSets[i].items
-                for (int j = 0; j < entries.length; j++) {
-                    def entry = entries[j]
-                    log += "* ${entry.msg} by ${entry.author} \n"
-                }
-            }
-        }
-        return log;
-    }
