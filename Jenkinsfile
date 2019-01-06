@@ -7,14 +7,9 @@ node('linuxslave') {
      worstResultForIncrement: 'FAILURE'
    ]);
 
-    passedBuilds = []
-
-    lastSuccessfulBuild(passedBuilds, currentBuild);
-
-    def changeLog = getChangeLog(passedBuilds)
-    echo "changeLog ${changeLog}"
-
     stage('Latest Changes'){
+        def changeLogSets = currentBuild.changeSets
+
         println currentBuild.toString
     }
 
