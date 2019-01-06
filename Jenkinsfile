@@ -16,12 +16,7 @@ node('linuxslave') {
 
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GitHubCredentials',
         usernameVariable: 'gitUser', passwordVariable: 'gitPwd']]) {
-            sh 'echo uname=$gitUser pwd=$gitPwd'
-            def tokens = "${SERVICE_REPO_URL}".split('//')
-            def part1 = tokens[0]
-            def part2 = tokens[1]
-
-            def url = "${SERVICE_REPO_URL}".replace("https://", "https:${gitUser}:${gitPwd}@")
+            def url = "${SERVICE_REPO_URL}".replace("https://", "https://${gitUser}:${gitPwd}@")
             println url
 
             sh 'git config --global user.name $gitUser'
