@@ -18,7 +18,7 @@ node('linuxslave') {
     }
 
     stage('Latest Changes'){
-        echo 'changeLogSets is '+currentBuild.changeSet
+        echo 'changeLogSets is '+currentBuild.changeSets
     }
 
     /*stage('Gradle build'){
