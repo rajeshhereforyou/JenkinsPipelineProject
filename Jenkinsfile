@@ -23,7 +23,7 @@ node('linuxslave') {
         lastSuccessfulBuild(passedBuilds, currentBuild);
 
         for(int i=0; i<passedBuilds.size();i++){
-            print(passedBuilds[i]);
+            print(passedBuilds[i].getNumber());
         }
 
         //def changeLog = getChangeLog(passedBuilds)
