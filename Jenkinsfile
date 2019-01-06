@@ -31,15 +31,9 @@ node('linuxslave') {
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GitHubCredentials',
         usernameVariable: 'gitUser', passwordVariable: 'gitPwd']]) {
             sh 'echo uname=$gitUser pwd=$gitPwd'
-
-
-            sh 'echo ${SERVICE_REPO_URL}'
-            //https://github.com/rajeshhereforyou/myspringbootapp.git
-
             tokens = "${SERVICE_REPO_URL}".split('//')
             part1 = tokens[0]
             part2 = tokens[1]
-            echo 'part2 is '+part2
 
             sh 'git config --global user.name $gitUser'
             sh 'git tag -a ${APP_VERSION} -m "Version ${APP_VERSION}"'
