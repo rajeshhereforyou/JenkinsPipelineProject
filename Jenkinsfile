@@ -28,7 +28,7 @@ node('linuxslave') {
         }
 
         def changeLog = getChangeLog1(passedBuilds)
-        //echo "changeLog ${changeLog}"
+        echo "changeLog ${changeLog}"
     }
 
     /*stage('Gradle build'){
