@@ -23,6 +23,7 @@ node('linuxslave') {
         lastSuccessfulBuild(passedBuilds, currentBuild);
 
         for(int i=0; i<passedBuilds.size();i++){
+            println('current build result is :+currentBuild.result);
             print(passedBuilds[i].getNumber());
         }
 
