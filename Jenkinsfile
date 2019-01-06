@@ -17,7 +17,20 @@ node('linuxslave') {
         checkout([$class: 'GitSCM', branches: [[name: '${BUILDSCRIPTS_REPO_BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '${BUILDSCRIPTS_DIR}']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHubCredentials', url: '${BUILDSCRIPTS_REPO_URL}']]])
     }
 
-   stage('Gradle build'){
+    stage('Gradle build'){
         sh './gradlew build -x test'
-   }
+    }
+
+    stage('Tagging') {
+        echo 'Tagging..'
+
+        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '8cd86167-5498-4a0c-8ed3-9a18e9e1d2de',
+        usernameVariable: 'gitUser', passwordVariable: 'gitPwd']]) {
+            sh 'echo uname=$gitUser pwd=$gitPwd'
+
+            sh 'git config --global user.name $gitUser'
+            sh 'git tag -a ${APP_VERSION} -m "Version ${APP_VERSION}"'
+            sh 'git push https://$gitUser:$gitPwd@${SERVICE_REPO_URL##*//}  --tags'
+         }
+    }
 }
