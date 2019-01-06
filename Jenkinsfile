@@ -25,7 +25,9 @@ pipeline {
         }
 
         stage('Get SCM Commit details'){
-            echo 'Test'
+            steps {
+               echo 'Test'
+            }
         }
 
         stage('Gradle build') {
