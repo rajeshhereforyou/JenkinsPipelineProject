@@ -17,11 +17,8 @@ node('linuxslave') {
         checkout([$class: 'GitSCM', branches: [[name: '${BUILDSCRIPTS_REPO_BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '${BUILDSCRIPTS_DIR}']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHubCredentials', url: '${BUILDSCRIPTS_REPO_URL}']]])
     }
 
-    def changeLogSets = currentBuild.changeSets.length
-
     stage('Latest Changes'){
-        echo 'changeLogSets is '+currentBuild.changeSets.length
-        echo 'result is : '+currentBuild.getPreviousBuild().result
+        echo 'changeLogSets is '+currentBuild.changeSet
     }
 
     /*stage('Gradle build'){
