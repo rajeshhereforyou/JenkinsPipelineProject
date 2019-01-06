@@ -26,7 +26,7 @@ pipeline {
 
         stage('Get SCM Commit details'){
             steps {
-               echo 'Test'
+               echo 'Get SCM Commit details'
             }
         }
 
