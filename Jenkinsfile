@@ -29,7 +29,7 @@ pipeline {
         }
 
 
-        stage('Tagging') {
+        /*stage('Tagging') {
             steps {
                 echo 'Tagging..'
 
@@ -47,7 +47,7 @@ pipeline {
 
 
             }
-        }
+        }*/
 
         stage('Gradle build') {
                     steps {
