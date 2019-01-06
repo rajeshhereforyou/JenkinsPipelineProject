@@ -21,7 +21,9 @@ node('linuxslave') {
         sh './gradlew build -x test'
     }
 
-    stage()
+    stage('Latest Changes'){
+        echo 'currentBuild.result'
+    }
 
     stage('Tagging') {
         echo 'Tagging..'
