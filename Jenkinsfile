@@ -11,20 +11,6 @@ node('linuxslave') {
       sh 'echo "$APP_VERSION"';
    }
 
-    stage('Multiple SCM checkout ') {
-        echo 'SCM checkout..'
-        checkout([$class: 'GitSCM', branches: [[name: '${SERVICE_REPO_BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHubCredentials', url: '${SERVICE_REPO_URL}']]])
-        checkout([$class: 'GitSCM', branches: [[name: '${BUILDSCRIPTS_REPO_BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '${BUILDSCRIPTS_DIR}']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHubCredentials', url: '${BUILDSCRIPTS_REPO_URL}']]])
-    }
-
-    stage('Gradle build'){
-        sh './gradlew build -x test'
-    }
-
-    stage('Latest Changes'){
-        echo currentBuild.result
-    }
-
     stage('Tagging') {
         echo 'Tagging..'
 
@@ -35,7 +21,7 @@ node('linuxslave') {
             def part1 = tokens[0]
             def part2 = tokens[1]
 
-            def url = "${SERVICE_REPO_URL}".replace("https://", "https://"+$gitUser+":"+$gitPwd+"@")
+            def url = "${SERVICE_REPO_URL}".replace("https://", "https://"+${gitUser}+":"+${gitPwd}+"@")
             println url
 
             sh 'git config --global user.name $gitUser'
@@ -43,4 +29,18 @@ node('linuxslave') {
             sh 'git push https://$gitUser:$gitPwd@${SERVICE_REPO_URL}.split('//')[1]  --tags'
          }
     }
+
+    stage('Multiple SCM checkout ') {
+            echo 'SCM checkout..'
+            checkout([$class: 'GitSCM', branches: [[name: '${SERVICE_REPO_BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHubCredentials', url: '${SERVICE_REPO_URL}']]])
+            checkout([$class: 'GitSCM', branches: [[name: '${BUILDSCRIPTS_REPO_BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '${BUILDSCRIPTS_DIR}']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHubCredentials', url: '${BUILDSCRIPTS_REPO_URL}']]])
+        }
+
+        stage('Gradle build'){
+            sh './gradlew build -x test'
+        }
+
+        stage('Latest Changes'){
+            echo currentBuild.result
+        }
 }
