@@ -7,12 +7,6 @@ node('linuxslave') {
      worstResultForIncrement: 'FAILURE'
    ]);
 
-   def changeLogSets = currentBuild.changeSets
-
-    stage('Latest Changes'){
-        println changeLogSets.toString
-    }
-
     stage('Setting App Version'){
         sh 'echo "$APP_VERSION"';
     }
@@ -23,11 +17,15 @@ node('linuxslave') {
         checkout([$class: 'GitSCM', branches: [[name: '${BUILDSCRIPTS_REPO_BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '${BUILDSCRIPTS_DIR}']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHubCredentials', url: '${BUILDSCRIPTS_REPO_URL}']]])
     }
 
-    stage('Gradle build'){
-        sh './gradlew build -x test'
+    def changeLogSets = currentBuild.changeSets
+
+    stage('Latest Changes'){
+        echo 'changeLogSets'+changeLogSets.toString
     }
 
-
+    /*stage('Gradle build'){
+        sh './gradlew build -x test'
+    }
 
     stage('Tagging') {
         echo 'Tagging..'
@@ -38,7 +36,7 @@ node('linuxslave') {
             sh 'git tag -a ${APP_VERSION} -m "Version ${APP_VERSION}"'
             sh 'git push https://$gitUser:$gitPwd@${SERVICE_REPO_URL##*//}  --tags'
          }
-    }
+    }*/
 }
 
     def lastSuccessfulBuild(passedBuilds, build) {
