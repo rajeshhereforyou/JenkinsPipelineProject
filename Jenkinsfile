@@ -24,7 +24,7 @@ node('linuxslave') {
     stage('Tagging') {
         echo 'Tagging..'
 
-        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: '8cd86167-5498-4a0c-8ed3-9a18e9e1d2de',
+        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GitHubCredentials',
         usernameVariable: 'gitUser', passwordVariable: 'gitPwd']]) {
             sh 'echo uname=$gitUser pwd=$gitPwd'
 
