@@ -43,7 +43,7 @@ node('linuxslave') {
 
             sh 'git config --global user.name $gitUser'
             sh 'git tag -a ${APP_VERSION} -m "Version ${APP_VERSION}"'
-            sh 'git push https://$gitUser:$gitPwd@${part2}  --tags'
+            sh 'git push https://$gitUser:$gitPwd@$part2  --tags'
 
             //echo 'https://'+${gitUser+':'+${gitPwd}+'@'+part2
          }
