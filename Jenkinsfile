@@ -39,18 +39,18 @@ node('linuxslave') {
             tokens = "${SERVICE_REPO_URL}".tokenize('\/\/')
             part1 = tokens[0]
             part2 = tokens[1]
-            part3 = tokens[2]
-            part4 = tokens[3]
+            //part3 = tokens[2]
+            //part4 = tokens[3]
             echo 'part1 is '+part1
             echo 'part2 is '+part2
-            echo 'part3 is '+part3
-            echo 'part4 is '+part4
+            //echo 'part3 is '+part3
+            //echo 'part4 is '+part4
 
             //sh 'git config --global user.name $gitUser'
             //sh 'git tag -a ${APP_VERSION} -m "Version ${APP_VERSION}"'
             //sh 'git push https://$gitUser:$gitPwd@${SERVICE_REPO_URL##*//}  --tags'
 
-            echo 'https://'+${gitUser}+':'+${gitPwd}+'@'+part2+'/'+part3+'/'+part4
+            //echo 'https://'+${gitUser}+':'+${gitPwd}+'@'+part2+'/'+part3+'/'+part4
          }
     }
 }
