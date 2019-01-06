@@ -50,7 +50,7 @@ node('linuxslave') {
             //sh 'git tag -a ${APP_VERSION} -m "Version ${APP_VERSION}"'
             //sh 'git push https://$gitUser:$gitPwd@${SERVICE_REPO_URL##*//}  --tags'
 
-            echo 'https://'+$gitUser+':'+$gitPwd+'@'+part2+'/'+part3+'/'+part4
+            echo 'https://'+${gitUser}+':'+${gitPwd}+'@'+part2+'/'+part3+'/'+part4
          }
     }
 }
