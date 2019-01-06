@@ -23,7 +23,6 @@ node('linuxslave') {
         lastSuccessfulBuild(passedBuilds, currentBuild);
 
         for(int i=0; i<passedBuilds.size();i++){
-            println("current build result is : "+currentBuild.result);
             print(passedBuilds[i].getNumber());
         }
 
@@ -56,11 +55,12 @@ def lastSuccessfulBuild(passedBuilds, build) {
 }
 
 def getChangeLog1(passedBuilds){
- def log = ""
- for (int x = 0; x < passedBuilds.size(); x++) {
-
-     }
-     return log;
+    def log = ""
+    for (int x = 0; x < passedBuilds.size(); x++) {
+        def currentBuild = passedBuilds[x];
+        def changeLogSets = currentBuild.rawBuild.changeSets
+    }
+    return log;
 }
 
 def getChangeLog(passedBuilds) {
