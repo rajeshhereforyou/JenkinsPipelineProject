@@ -10,6 +10,6 @@ node('linuxslave') {
    }
 
    stage('Setting App Version'){
-      echo "$APP_VERSION";
+      echo env.APP_VERSION;
    }
 }
