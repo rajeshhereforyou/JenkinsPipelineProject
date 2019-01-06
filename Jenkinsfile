@@ -36,11 +36,15 @@ node('linuxslave') {
             sh 'echo ${SERVICE_REPO_URL}'
             //https://github.com/rajeshhereforyou/myspringbootapp.git
 
-            tokens = "${SERVICE_REPO_URL}".tokenize('////')
+            tokens = "${SERVICE_REPO_URL}".tokenize('//')
             part1 = tokens[0]
             part2 = tokens[1]
+            part3 = tokens[2]
+            part4 = tokens[3]
             echo 'part1 is '+part1
             echo 'part2 is '+part2
+            echo 'part3 is '+part3
+            echo 'part4 is '+part4
 
             //sh 'git config --global user.name $gitUser'
             //sh 'git tag -a ${APP_VERSION} -m "Version ${APP_VERSION}"'
