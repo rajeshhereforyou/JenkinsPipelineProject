@@ -20,7 +20,7 @@ node('linuxslave') {
     def changeLogSets = currentBuild.changeSets
 
     stage('Latest Changes'){
-        echo 'changeLogSets is '+changeLogSets.toString
+        echo 'changeLogSets is '+changeLogSets
         echo 'result is : '+currentBuild.getPreviousBuild().result
     }
 
