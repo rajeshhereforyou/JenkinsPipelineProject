@@ -35,6 +35,9 @@ node('linuxslave') {
             def part1 = tokens[0]
             def part2 = tokens[1]
 
+            def url = "${SERVICE_REPO_URL}".replace("https://", "https://"+$gitUser+":"+$gitPwd+"@")
+            println url
+
             sh 'git config --global user.name $gitUser'
             sh 'git tag -a ${APP_VERSION} -m "Version ${APP_VERSION}"'
             sh 'git push https://$gitUser:$gitPwd@${SERVICE_REPO_URL}.split('//')[1]  --tags'
