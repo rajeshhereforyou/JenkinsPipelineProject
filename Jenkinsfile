@@ -19,7 +19,7 @@ node('linuxslave') {
             def url = "${SERVICE_REPO_URL}".replace("https://", "https://${gitUser}:${gitPwd}@")
             println url
 
-            sh 'echo hi'
+            sh 'echo "${SERVICE_REPO_URL##*//}"'
 
             sh 'git config --global user.name $gitUser'
             sh 'git tag -a ${APP_VERSION} -m "Version ${APP_VERSION}"'
