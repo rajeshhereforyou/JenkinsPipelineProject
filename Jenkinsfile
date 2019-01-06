@@ -9,10 +9,8 @@ node('linuxslave') {
 
    def changeLogSets = currentBuild.changeSets
 
-   println changeLogSets.toString
-
     stage('Latest Changes'){
-
+        println changeLogSets.toString
     }
 
     stage('Setting App Version'){
