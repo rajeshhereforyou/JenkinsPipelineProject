@@ -22,7 +22,7 @@ node('linuxslave') {
     }
 
     stage('Latest Changes'){
-        echo 'currentBuild.result'
+        echo currentBuild.result
     }
 
     stage('Tagging') {
@@ -32,6 +32,9 @@ node('linuxslave') {
         usernameVariable: 'gitUser', passwordVariable: 'gitPwd']]) {
             sh 'echo uname=$gitUser pwd=$gitPwd'
 
+
+            sh 'echo ${SERVICE_REPO_URL}'
+            //https://github.com/rajeshhereforyou/myspringbootapp.git
 
             tokens = "${SERVICE_REPO_URL}".tokenize('//')
             part1 = tokens[0]
