@@ -25,7 +25,7 @@ node('linuxslave') {
 
         lastSuccessfulBuild(passedBuilds, currentBuild);
 
-        //def changeLog = getChangeLog(passedBuilds)
+        def changeLog = getChangeLog(passedBuilds)
         //echo "changeLog ${changeLog}"
     }
 
@@ -67,7 +67,6 @@ def lastSuccessfulBuild(passedBuilds, build) {
    }
 }
 
-@NonCPS
 def getChangeLog(passedBuilds) {
     def log = ""
     for (int x = 0; x < passedBuilds.size(); x++) {
