@@ -7,10 +7,12 @@ node('linuxslave') {
      worstResultForIncrement: 'FAILURE'
    ]);
 
-    stage('Latest Changes'){
-        def changeLogSets = currentBuild.changeSets
+   def changeLogSets = currentBuild.changeSets
 
-        println currentBuild.toString
+   println changeLogSets.toString
+
+    stage('Latest Changes'){
+
     }
 
     stage('Setting App Version'){
