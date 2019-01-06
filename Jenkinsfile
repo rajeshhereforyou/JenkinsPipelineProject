@@ -1,13 +1,11 @@
 node('linuxslave') {
    echo ' Will run on the slave with name or tag specialSlave'
 
-   environment {
-     APP_VERSION = VersionNumber([
-       versionNumberString: '${MAJOR_MINOR_VERSION}.${BUILD_DATE_FORMATTED, "yyyyMMdd"}.${BUILDS_TODAY}',
-       versionPrefix: '',
-       worstResultForIncrement: 'FAILURE'
-     ]);
-   }
+   env.APP_VERSION = VersionNumber([
+     versionNumberString: '${MAJOR_MINOR_VERSION}.${BUILD_DATE_FORMATTED, "yyyyMMdd"}.${BUILDS_TODAY}',
+     versionPrefix: '',
+     worstResultForIncrement: 'FAILURE'
+   ]);
 
    stage('Setting App Version'){
       echo env.APP_VERSION;
