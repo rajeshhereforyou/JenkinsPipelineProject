@@ -46,21 +46,11 @@ node('linuxslave') {
     }*/
 }
 
-
 def lastSuccessfulBuild(passedBuilds, build) {
   if ((build != null) && (build.result != 'SUCCESS')) {
       passedBuilds.add(build)
       lastSuccessfulBuild(passedBuilds, build.getPreviousBuild())
    }
-}
-
-def getChangeLog1(passedBuilds){
-    def log = ""
-    for (int x = 0; x < passedBuilds.size(); x++) {
-        def currentBuild = passedBuilds[x];
-        def changeLogSets = currentBuild.changeSets
-    }
-    return log;
 }
 
 def getChangeLog(passedBuilds) {
@@ -72,25 +62,10 @@ def getChangeLog(passedBuilds) {
             def entries = changeLogSets[i].items
             for (int j = 0; j < entries.length; j++) {
                 def entry = entries[j]
-                log += "* ${entry.msg} by ${entry.author} \n"
+                log += "* ${entry.msg} with ${entry.commitId} by ${entry.author} \n"
             }
         }
     }
     return log;
 }
 
-
-def printChanges(changeLogSets){
-    for (int i = 0; i < changeLogSets.size(); i++) {
-            def entries = changeLogSets[i].items
-            for (int j = 0; j < entries.length; j++) {
-                def entry = entries[j]
-                echo "${entry.commitId} by ${entry.author} on ${new Date(entry.timestamp)}: ${entry.msg}"
-                def files = new ArrayList(entry.affectedFiles)
-                for (int k = 0; k < files.size(); k++) {
-                    def file = files[k]
-                    echo "  ${file.editType.name} ${file.path}"
-                }
-            }
-        }
-}
