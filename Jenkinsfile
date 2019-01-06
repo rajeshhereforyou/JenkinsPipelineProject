@@ -21,6 +21,7 @@ node('linuxslave') {
 
     stage('Latest Changes'){
         echo 'changeLogSets'+changeLogSets.toString
+        echo 'result'+currentBuild.getPreviousBuild().result
     }
 
     /*stage('Gradle build'){
