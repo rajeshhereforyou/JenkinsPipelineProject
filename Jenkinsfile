@@ -31,13 +31,13 @@ node('linuxslave') {
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GitHubCredentials',
         usernameVariable: 'gitUser', passwordVariable: 'gitPwd']]) {
             sh 'echo uname=$gitUser pwd=$gitPwd'
-            tokens = "${SERVICE_REPO_URL}".split('//')
-            part1 = tokens[0]
-            part2 = tokens[1]
+            def tokens = "${SERVICE_REPO_URL}".split('//')
+            def part1 = tokens[0]
+            def part2 = tokens[1]
 
             sh 'git config --global user.name $gitUser'
             sh 'git tag -a ${APP_VERSION} -m "Version ${APP_VERSION}"'
-            sh 'git push https://$gitUser:$gitPwd@$part2  --tags'
+            sh 'git push https://$gitUser:$gitPwd@$tokens[1]  --tags'
 
             //echo 'https://'+${gitUser+':'+${gitPwd}+'@'+part2
          }
