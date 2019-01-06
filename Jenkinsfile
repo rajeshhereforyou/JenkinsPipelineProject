@@ -24,6 +24,10 @@ pipeline {
             }
         }
 
+        stage('Get SCM Commit details'){
+            echo 'Test'
+        }
+
 
         stage('Tagging') {
             steps {
