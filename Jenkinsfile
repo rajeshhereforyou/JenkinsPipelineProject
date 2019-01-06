@@ -10,4 +10,8 @@ node('linuxslave') {
    stage('Setting App Version'){
       sh 'echo "$APP_VERSION"';
    }
+
+   stage('Gradle build'){
+        sh './gradlew build -x test'
+   }
 }
