@@ -13,7 +13,7 @@ node('linuxslave') {
         env.BUILDSCRIPTS_DIR = "${WORKSPACE}/${BUILDSCRIPTS_DIR}"
     }
 
-     stage('Latest Changes'){
+     /*stage('Latest Changes'){
         passedBuilds = []
 
         lastSuccessfulBuild(passedBuilds, currentBuild);
@@ -24,12 +24,16 @@ node('linuxslave') {
 
         def changeLog = getChangeLog(passedBuilds)
         echo "changeLog is  ${changeLog}"
-    }
+    }*/
 
 
     stage('Multiple SCM checkout ') {
         echo 'SCM checkout..'
-        checkout([$class: 'GitSCM', branches: [[name: '${SERVICE_REPO_BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHubCredentials', name: 'ServiceRepo', url: '${SERVICE_REPO_URL}']]])
+        def scmVars = checkout([$class: 'GitSCM', branches: [[name: '${SERVICE_REPO_BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHubCredentials', name: 'ServiceRepo', url: '${SERVICE_REPO_URL}']]])
+        def commitHash = scmVars.GIT_COMMIT
+
+        echo "commitHash is ${commitHash}"
+
         checkout([$class: 'GitSCM', branches: [[name: '${BUILDSCRIPTS_REPO_BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '${BUILDSCRIPTS_DIR}']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHubCredentials', url: '${BUILDSCRIPTS_REPO_URL}']]])
     }
 
@@ -87,8 +91,6 @@ def getChangeLog(passedBuilds) {
         println( "################### changeLogSets.size() is "+changeLogSets.size())
 
         for (int i = 0; i < changeLogSets.size(); i++) {
-            def browser = changeLogSets[i].browser
-
             def entries = changeLogSets[i].items
             for (int j = 0; j < entries.length; j++) {
                 def entry = entries[j]
