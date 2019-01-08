@@ -30,7 +30,7 @@ node('linuxslave') {
     stage('Multiple SCM checkout ') {
         echo 'SCM checkout..'
         def scmVars = checkout([$class: 'GitSCM', branches: [[name: '${SERVICE_REPO_BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHubCredentials', name: 'ServiceRepo', url: '${SERVICE_REPO_URL}']]])
-        def commitHash = scmVars.GIT_COMMIT
+        def commitHash = scmVars
 
         echo "commitHash is ${commitHash}"
 
