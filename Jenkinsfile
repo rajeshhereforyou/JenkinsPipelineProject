@@ -30,6 +30,10 @@ node('linuxslave') {
         echo "changeLog is  ${changeLog}"
     }
 
+    stage('Testing Conditional Task Execution') {
+        sh 'echo $executePrintTask'
+    }
+
     /*stage('Gradle build'){
         sh './gradlew build -x test'
     }
