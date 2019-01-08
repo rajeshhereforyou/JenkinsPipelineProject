@@ -24,10 +24,10 @@ node('linuxslave') {
     stage('gitChangelog for ServiceRepo'){
        def changelogContext =  gitChangelog repo: 'ServiceRepo', returnType: 'CONTEXT'
 
-       echo 'changelogContext is ${changelogContext}'
+       echo 'changelogContext is "${changelogContext}"'
     }
 
-    stage('Latest Changes'){
+    /*stage('Latest Changes'){
         passedBuilds = []
 
         lastSuccessfulBuild(passedBuilds, currentBuild);
@@ -60,7 +60,7 @@ node('linuxslave') {
         }
     }
 
-    /*stage('Gradle build'){
+    stage('Gradle build'){
         sh './gradlew build -x test'
     }
 
