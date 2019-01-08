@@ -12,7 +12,7 @@ node('linuxslave') {
     stage('Setting App Version'){
         sh 'echo "$APP_VERSION"';
 
-        env.BUILDSCRIPTS_DIR = "${BUILDSCRIPTS_DIR}/buildscripts"
+        env.BUILDSCRIPTS_DIR = "${WORKSPACE}/${BUILDSCRIPTS_DIR}"
     }
 
     stage('Multiple SCM checkout ') {
