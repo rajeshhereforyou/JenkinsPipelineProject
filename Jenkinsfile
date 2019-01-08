@@ -19,8 +19,8 @@ node('linuxslave') {
         checkout([$class: 'GitSCM', branches: [[name: '${SERVICE_REPO_BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHubCredentials', name: 'ServiceRepo', url: '${SERVICE_REPO_URL}']]])
     }
 
-    stage('gitChangelog for ServiceRepo'){
-       def changelogContext =  gitChangelog from: [type: 'REF', value: '${APP_VERSION}'], returnType: 'STRING', template: '''{{#commits}}
+    /*stage('gitChangelog for ServiceRepo'){
+       def changelogContext =  gitChangelog from: [type: 'REF', value: 'env.${APP_VERSION}'], returnType: 'STRING', template: '''{{#commits}}
                                 {{authorName}} <i>{{commitTime}}</i>
                                <p>
                                <h3>{{{messageTitle}}}</h3>
@@ -32,9 +32,9 @@ node('linuxslave') {
                                 {{/commits}}'''
 
        echo "changelogContext is  ${changelogContext}"
-    }
+    }*/
 
-    /*stage('Latest Changes'){
+    stage('Latest Changes'){
         passedBuilds = []
 
         lastSuccessfulBuild(passedBuilds, currentBuild);
@@ -47,7 +47,7 @@ node('linuxslave') {
         echo "changeLog is  ${changeLog}"
     }
 
-    stage('Parsing Jenkins Credentials and setting ENv Variables'){
+    /*stage('Parsing Jenkins Credentials and setting ENv Variables'){
         withCredentials(
                         [[$class: 'UsernamePasswordMultiBinding',
                         credentialsId: 'GitHubCredentials',
@@ -95,6 +95,8 @@ def getChangeLog(passedBuilds) {
     for (int x = 0; x < passedBuilds.size(); x++) {
         def currentBuild = passedBuilds[x];
         def changeLogSets = currentBuild.changeSets
+
+        println( "changeLogSets.size() is "+changeLogSets.size())
         for (int i = 0; i < changeLogSets.size(); i++) {
             def entries = changeLogSets[i].items
             for (int j = 0; j < entries.length; j++) {
