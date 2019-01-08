@@ -16,6 +16,9 @@ node('linuxslave') {
     stage('Multiple SCM checkout ') {
         echo 'SCM checkout..'
         //checkout([$class: 'GitSCM', branches: [[name: '${BUILDSCRIPTS_REPO_BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '${BUILDSCRIPTS_DIR}']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHubCredentials', url: '${BUILDSCRIPTS_REPO_URL}']]])
+
+        build job: 'RootPipelineTemplate', parameters: [string(name: 'BUILDSCRIPTS_REPO_URL', value: '${BUILDSCRIPTS_REPO_URL}'), string(name: 'BUILDSCRIPTS_REPO_BRANCH', value: '${BUILDSCRIPTS_REPO_BRANCH}'), string(name: 'BUILDSCRIPTS_DIR', value: '${BUILDSCRIPTS_DIR}'), string(name: 'MAJOR_MINOR_VERSION', value: '1.0'), booleanParam(name: 'executePrintTask', value: false)]
+
         checkout([$class: 'GitSCM', branches: [[name: '${SERVICE_REPO_BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHubCredentials', url: '${SERVICE_REPO_URL}']]])
     }
 
