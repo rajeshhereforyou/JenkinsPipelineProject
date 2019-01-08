@@ -31,14 +31,14 @@ node('linuxslave') {
     }
 
     stage('Parsing Jenkins Credentials and setting ENv Variables'){
-        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GitHubCredentials',
-            usernameVariable: 'gitUser', passwordVariable: 'gitPwd']]) {
-               withEnv(["gitUser=${gitUser}",
-                                "gitPwd=${gitPwd}"
-                           ]) {
-                            sh 'echo "$gitUser"';
-                           }
-
+        withCredentials(
+                        [[$class: 'UsernamePasswordMultiBinding',
+                        credentialsId: 'GitHubCredentials',
+                        usernameVariable: 'gitUser',
+                        passwordVariable: 'gitPwd']]
+                        ) {
+                env.gitUser = "${gitUser}"
+                env.gitPwd = "${gitPwd}"
              }
     }
 
