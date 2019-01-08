@@ -7,8 +7,6 @@ node('linuxslave') {
      worstResultForIncrement: 'FAILURE'
    ]);
 
-
-
     stage('Setting App Version'){
         sh 'echo "$APP_VERSION"';
 
@@ -22,9 +20,8 @@ node('linuxslave') {
     }
 
     stage('gitChangelog for ServiceRepo'){
-       def changelogContext =  gitChangelog repo: 'ServiceRepo', returnType: 'CONTEXT'
-
-       echo 'changelogContext is "${changelogContext}"'
+       def changelogContext =  gitChangelog from: [type: 'REF', value: '${SERVICE_REPO_BRANCH}'], returnType: 'STRING', template: '{{/commits}}'
+       echo "changelogContext is  ${changelogContext}"
     }
 
     /*stage('Latest Changes'){
