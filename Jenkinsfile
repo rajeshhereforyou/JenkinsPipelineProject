@@ -15,24 +15,9 @@ node('linuxslave') {
 
     stage('Multiple SCM checkout ') {
         echo 'SCM checkout..'
-        checkout([$class: 'GitSCM', branches: [[name: '${BUILDSCRIPTS_REPO_BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '${BUILDSCRIPTS_DIR}']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHubCredentials', url: '${BUILDSCRIPTS_REPO_URL}']]])
         checkout([$class: 'GitSCM', branches: [[name: '${SERVICE_REPO_BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHubCredentials', name: 'ServiceRepo', url: '${SERVICE_REPO_URL}']]])
+        checkout([$class: 'GitSCM', branches: [[name: '${BUILDSCRIPTS_REPO_BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '${BUILDSCRIPTS_DIR}']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHubCredentials', url: '${BUILDSCRIPTS_REPO_URL}']]])
     }
-
-    /*stage('gitChangelog for ServiceRepo'){
-       def changelogContext =  gitChangelog from: [type: 'REF', value: 'env.${APP_VERSION}'], returnType: 'STRING', template: '''{{#commits}}
-                                {{authorName}} <i>{{commitTime}}</i>
-                               <p>
-                               <h3>{{{messageTitle}}}</h3>
-
-                               {{#messageBodyItems}}
-                                <li> {{.}}</li>
-                               {{/messageBodyItems}}
-                               </p>
-                                {{/commits}}'''
-
-       echo "changelogContext is  ${changelogContext}"
-    }*/
 
     stage('Latest Changes'){
         passedBuilds = []
