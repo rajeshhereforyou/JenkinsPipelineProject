@@ -96,7 +96,7 @@ def getChangeLog(passedBuilds) {
         def currentBuild = passedBuilds[x];
         def changeLogSets = currentBuild.changeSets
 
-        println( "changeLogSets.size() is "+changeLogSets.size())
+        println( "################### changeLogSets.size() is "+changeLogSets.size())
 
         for (int i = 1; i < changeLogSets.size(); i++) {
             def entries = changeLogSets[i].items
