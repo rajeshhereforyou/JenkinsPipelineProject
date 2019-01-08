@@ -43,7 +43,9 @@ node('linuxslave') {
             usernameVariable: 'gitUser', passwordVariable: 'gitPwd']]) {
                withEnv(["gitUser=${gitUser}",
                                 "gitPwd=${gitPwd}"
-                           ]) {}
+                           ]) {
+                            sh 'echo "$gitUser"';
+                           }
 
              }
     }
