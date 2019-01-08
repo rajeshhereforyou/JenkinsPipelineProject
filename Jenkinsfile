@@ -83,21 +83,16 @@ def getChangeLog(passedBuilds) {
 
         println( "################### changeLogSets.size() is "+changeLogSets.size())
 
-        for (int i = 1; i < changeLogSets.size(); i++) {
+        for (int i = 0; i < changeLogSets.size(); i++) {
+            def browser = changeLogSets[i].browser
+
+            println( "################### browser is "+browser.all())
             def entries = changeLogSets[i].items
             for (int j = 0; j < entries.length; j++) {
                 def entry = entries[j]
                 log += "* ${entry.msg} with ${entry.commitId} by ${entry.author} \n"
             }
         }
-
-        /*for (int i = 0; i < changeLogSets.size(); i++) {
-            def entries = changeLogSets[i].items
-            for (int j = 0; j < entries.length; j++) {
-                def entry = entries[j]
-                log += "* ${entry.msg} with ${entry.commitId} by ${entry.author} \n"
-            }
-        }*/
     }
     return log;
 }
