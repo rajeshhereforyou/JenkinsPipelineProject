@@ -41,10 +41,10 @@ node('linuxslave') {
     stage('Parsing Jenkins Credentials and setting ENv Variables'){
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GitHubCredentials',
             usernameVariable: 'gitUser', passwordVariable: 'gitPwd']]) {
-               environment {
-                       gitUser = $gitUser
-                       gitPwd    = $gitPwd
-                   }
+               withEnv(["gitUser=${gitUser}",
+                                "gitPwd=${gitPwd}"
+                           ]) {}
+
              }
     }
 
