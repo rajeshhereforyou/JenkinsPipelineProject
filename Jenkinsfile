@@ -30,14 +30,6 @@ node('linuxslave') {
         echo "changeLog is  ${changeLog}"
     }
 
-    stage('Testing Conditional Task Execution') {
-        def b = "${executePrintTask}"
-
-        if(b.equalsIgnoreCase("true")){
-            sh './gradlew printGlobalEnvProps'
-        }
-    }
-
     stage('Parsing Jenkins Credentials and setting ENv Variables'){
         withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GitHubCredentials',
             usernameVariable: 'gitUser', passwordVariable: 'gitPwd']]) {
@@ -48,6 +40,14 @@ node('linuxslave') {
                            }
 
              }
+    }
+
+    stage('Testing Conditional Task Execution') {
+        def b = "${executePrintTask}"
+
+        if(b.equalsIgnoreCase("true")){
+            sh './gradlew printGlobalEnvProps'
+        }
     }
 
     /*stage('Gradle build'){
