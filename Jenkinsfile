@@ -20,7 +20,7 @@ node('linuxslave') {
     }
 
     stage('gitChangelog for ServiceRepo'){
-       def changelogContext =  gitChangelog from: [type: 'REF', value: '${SERVICE_REPO_BRANCH}'], returnType: 'STRING', template: '{{/commits}}'
+       def changelogContext =  gitChangelog from: [type: 'REF', value: '${SERVICE_REPO_BRANCH}'], returnType: 'STRING', template: '{{#commits}}'
        echo "changelogContext is  ${changelogContext}"
     }
 
