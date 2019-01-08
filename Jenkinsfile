@@ -7,8 +7,12 @@ node('linuxslave') {
      worstResultForIncrement: 'FAILURE'
    ]);
 
+
+
     stage('Setting App Version'){
         sh 'echo "$APP_VERSION"';
+
+        env.BUILDSCRIPTS_DIR = "${WORKSPACE}/buildscripts"
     }
 
     stage('Multiple SCM checkout ') {
