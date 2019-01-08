@@ -31,11 +31,9 @@ node('linuxslave') {
     }
 
     stage('Testing Conditional Task Execution') {
-        sh 'echo $executePrintTask'
-
         def b = "${executePrintTask}"
 
-        if(b){
+        if(b.equalsIgnoreCase("true"){
             sh './gradlew printGlobalEnvProps'
         }
     }
