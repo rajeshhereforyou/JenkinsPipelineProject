@@ -23,14 +23,10 @@ node('linuxslave') {
 
         def SCMVars = checkout([$class: 'GitSCM', branches: [[name: '${SERVICE_REPO_BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHubCredentials', url: '${SERVICE_REPO_URL}']]])
 
-        sh 'echo "$SCMVars"'
+        echo "$SCMVars"
     }
 
     stage('Latest Changes'){
-
-        def buildRootDir = currentBuild.getRootDir()
-        echo "buildRootDir is  ${buildRootDir}"
-
         passedBuilds = []
 
         lastSuccessfulBuild(passedBuilds, currentBuild);
