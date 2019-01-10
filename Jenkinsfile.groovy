@@ -21,6 +21,7 @@ node('linuxslave') {
 
         //build job: 'RootPipelineTemplate', parameters: [string(name: 'BUILDSCRIPTS_REPO_URL', value: 'https://github.com/rajeshhereforyou/JenkinsPipelineProject.git'), string(name: 'BUILDSCRIPTS_REPO_BRANCH', value: '${BUILDSCRIPTS_REPO_BRANCH}'), string(name: 'BUILDSCRIPTS_DIR', value: '${BUILDSCRIPTS_DIR}'), string(name: 'MAJOR_MINOR_VERSION', value: '1.0'), booleanParam(name: 'executePrintTask', value: false)]
 
+
         def SCMVars = checkout([$class: 'GitSCM', branches: [[name: '${SERVICE_REPO_BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHubCredentials', url: '${SERVICE_REPO_URL}']]])
 
         echo "$SCMVars"
