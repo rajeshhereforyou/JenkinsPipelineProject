@@ -38,42 +38,6 @@ node('linuxslave') {
         echo "changeLog is  ${changeLog}"
     }
 
-
-
-    /*stage('Parsing Jenkins Credentials and setting ENv Variables'){
-        withCredentials(
-                        [[$class: 'UsernamePasswordMultiBinding',
-                        credentialsId: 'GitHubCredentials',
-                        usernameVariable: 'gitUser',
-                        passwordVariable: 'gitPwd']]
-                        ) {
-                env.gitUser = "${gitUser}"
-                env.gitPwd = "${gitPwd}"
-             }
-    }
-
-    stage('Testing Conditional Task Execution') {
-        def b = "${executePrintTask}"
-
-        if(b.equalsIgnoreCase("true")){
-            sh './gradlew printGlobalEnvProps'
-        }
-    }
-
-    stage('Gradle build'){
-        sh './gradlew build -x test'
-    }
-
-    stage('Tagging') {
-        echo 'Tagging..'
-
-        withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: 'GitHubCredentials',
-        usernameVariable: 'gitUser', passwordVariable: 'gitPwd']]) {
-            sh 'git config --global user.name $gitUser'
-            sh 'git tag -a ${APP_VERSION} -m "Version ${APP_VERSION}"'
-            sh 'git push https://$gitUser:$gitPwd@${SERVICE_REPO_URL##*//}  --tags'
-         }
-    }*/
 }
 
 def lastSuccessfulBuild(passedBuilds, build) {
