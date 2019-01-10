@@ -40,8 +40,8 @@ node('linuxslave') {
 
 }
 
-node('linuxslave'){
-    stage(){
+node('linuxslave') {
+    stage('TEsting different nodes'){
         echo ' Will run on the slave with name or tag specialSlave'
     }
 }
