@@ -40,6 +40,12 @@ node('linuxslave') {
 
 }
 
+node('linuxslave'){
+    stage(){
+        echo ' Will run on the slave with name or tag specialSlave'
+    }
+}
+
 def lastSuccessfulBuild(passedBuilds, build) {
   if ((build != null) && (build.result != 'SUCCESS')) {
       passedBuilds.add(build)
