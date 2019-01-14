@@ -30,7 +30,7 @@ node('linuxslave') {
     }
 
     stage('Test'){
-        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '**/reports/tests/', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
+        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '**/build/reports/tests/', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
     }
 
     stage('Latest Changes'){
