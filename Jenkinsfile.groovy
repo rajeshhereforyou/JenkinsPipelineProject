@@ -30,25 +30,25 @@ node('linuxslave') {
     }
 
     stage('Test'){
-        junit '**/build/test-results/test/*.xml'
+        junit allowEmptyResults: true, testResults: '**/build/test-results/*.xml'
     }
 
-    stage('Latest Changes'){
-        passedBuilds = []
-
-        lastSuccessfulBuild(passedBuilds, currentBuild);
-
-        for(int i=0; i<passedBuilds.size();i++){
-            print(passedBuilds[i].getNumber());
-        }
-
-        def changeLog = getChangeLog(passedBuilds)
-        echo "changeLog is  ${changeLog}"
-    }
+//    stage('Latest Changes'){
+//        passedBuilds = []
+//
+//        lastSuccessfulBuild(passedBuilds, currentBuild);
+//
+//        for(int i=0; i<passedBuilds.size();i++){
+//            print(passedBuilds[i].getNumber());
+//        }
+//
+//        def changeLog = getChangeLog(passedBuilds)
+//        echo "changeLog is  ${changeLog}"
+//    }
 
 }
 
-node('linuxslave') {
+/*node('linuxslave') {
     stage('TEsting different nodes'){
         echo ' Will run on the slave with name or tag specialSlave'
     }
@@ -78,5 +78,5 @@ def getChangeLog(passedBuilds) {
         }
     }
     return log;
-}
+}*/
 
