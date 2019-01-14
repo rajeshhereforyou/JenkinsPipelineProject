@@ -30,7 +30,7 @@ node('linuxslave') {
     }
 
     stage('Test'){
-        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '**/build/reports/tests/', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
+        junit '**/build/test-results/*.xml'
     }
 
     stage('Latest Changes'){
