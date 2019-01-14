@@ -25,6 +25,10 @@ node('linuxslave') {
         checkout([$class: 'GitSCM', branches: [[name: '${SERVICE_REPO_BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHubCredentials', url: '${SERVICE_REPO_URL}']]])
     }
 
+    stage('Test'){
+        publishHTML([allowMissing: false, alwaysLinkToLastBuild: false, keepAll: false, reportDir: '**/reports/tests/', reportFiles: 'index.html', reportName: 'HTML Report', reportTitles: ''])
+    }
+
     stage('Latest Changes'){
         passedBuilds = []
 
