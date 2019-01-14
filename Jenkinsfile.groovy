@@ -30,7 +30,7 @@ node('linuxslave') {
     }
 
     stage('Test'){
-        junit '**/build/test-results/*.xml'
+        junit '**/build/test-results/test/*.xml'
     }
 
     stage('Latest Changes'){
