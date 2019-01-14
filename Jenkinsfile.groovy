@@ -26,7 +26,7 @@ node('linuxslave') {
     }
 
     stage('Build'){
-        sh './gradlew build'
+        sh './gradlew clean build'
     }
 
     stage('Test'){
