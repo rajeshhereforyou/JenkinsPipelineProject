@@ -7,7 +7,6 @@ node('linuxslave') {
      worstResultForIncrement: 'FAILURE'
    ]);
 
-
     stage('Setting App Version'){
         sh 'echo "$APP_VERSION"';
 
