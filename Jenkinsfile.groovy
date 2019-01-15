@@ -7,6 +7,7 @@ node('linuxslave') {
      worstResultForIncrement: 'FAILURE'
    ]);
 
+
     stage('Setting App Version'){
         sh 'echo "$APP_VERSION"';
 
@@ -30,7 +31,7 @@ node('linuxslave') {
     }
 
     stage('Test'){
-        junit allowEmptyResults: true, testResults: '**/build/test-results/*.xml'
+        junit '**/build/test-results/test/*.xml'
     }
 
 //    stage('Latest Changes'){
