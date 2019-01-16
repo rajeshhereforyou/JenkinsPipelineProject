@@ -33,9 +33,7 @@ node('linuxslave') {
         junit '**/build/test-results/test/*.xml'
     }
 
-    stage('Post Build Actions - Build chaining'){
-        echo "${currentBuild.result}"
-    }
+
 
 //    stage('Latest Changes'){
 //        passedBuilds = []
@@ -50,6 +48,13 @@ node('linuxslave') {
 //        echo "changeLog is  ${changeLog}"
 //    }
 
+}
+
+
+node('linuxslave'){
+    stage('Post Build Actions - Build chaining'){
+        echo "${currentBuild.result}"
+    }
 }
 
 /*node('linuxslave') {
