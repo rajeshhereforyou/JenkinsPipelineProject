@@ -41,7 +41,7 @@ node('linuxslave') {
         // we need to re-throw it, to ensure that the build is marked as failed
         throw e
     }finally{
-        echo "${currentBuild.result}"
+        echo "${manager.build.result}"
         echo "${currentBuild.number}"
     }
 }
