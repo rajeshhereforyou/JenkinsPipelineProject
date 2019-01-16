@@ -1,62 +1,51 @@
 node('linuxslave') {
-   echo ' Will run on the slave with name or tag specialSlave'
 
-   env.APP_VERSION = VersionNumber([
-     versionNumberString: '${MAJOR_MINOR_VERSION}.${BUILD_DATE_FORMATTED, "yyyyMMdd"}.${BUILDS_TODAY}',
-     versionPrefix: '',
-     worstResultForIncrement: 'FAILURE'
-   ]);
+    try {
+        echo ' Will run on the slave with name or tag specialSlave'
 
-    stage('Setting App Version'){
-        sh 'echo "$APP_VERSION"';
+        env.APP_VERSION = VersionNumber([
+                versionNumberString: '${MAJOR_MINOR_VERSION}.${BUILD_DATE_FORMATTED, "yyyyMMdd"}.${BUILDS_TODAY}',
+                versionPrefix: '',
+                worstResultForIncrement: 'FAILURE'
+        ]);
 
-        env.BUILDSCRIPTS_DIR = "${WORKSPACE}/${BUILDSCRIPTS_DIR}"
-    }
+        stage('Setting App Version'){
+            sh 'echo "$APP_VERSION"';
 
-    stage('Multiple SCM checkout ') {
-        echo 'SCM checkout..'
-        checkout([$class: 'GitSCM', branches: [[name: '${BUILDSCRIPTS_REPO_BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '${BUILDSCRIPTS_DIR}']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHubCredentials', url: '${BUILDSCRIPTS_REPO_URL}']]])
+            env.BUILDSCRIPTS_DIR = "${WORKSPACE}/${BUILDSCRIPTS_DIR}"
+        }
 
-        //build job: 'RootPipelineTemplate', parameters: [string(name: 'BUILDSCRIPTS_REPO_URL', value: '${BUILDSCRIPTS_REPO_URL}'), string(name: 'BUILDSCRIPTS_REPO_BRANCH', value: '${BUILDSCRIPTS_REPO_BRANCH}'), string(name: 'BUILDSCRIPTS_DIR', value: '${BUILDSCRIPTS_DIR}'), string(name: 'MAJOR_MINOR_VERSION', value: '1.0'), booleanParam(name: 'executePrintTask', value: false)]
+        stage('Multiple SCM checkout ') {
+            echo 'SCM checkout..'
+            checkout([$class: 'GitSCM', branches: [[name: '${BUILDSCRIPTS_REPO_BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [[$class: 'RelativeTargetDirectory', relativeTargetDir: '${BUILDSCRIPTS_DIR}']], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHubCredentials', url: '${BUILDSCRIPTS_REPO_URL}']]])
 
-        //build job: 'RootPipelineTemplate', parameters: [string(name: 'BUILDSCRIPTS_REPO_URL', value: 'https://github.com/rajeshhereforyou/JenkinsPipelineProject.git'), string(name: 'BUILDSCRIPTS_REPO_BRANCH', value: '${BUILDSCRIPTS_REPO_BRANCH}'), string(name: 'BUILDSCRIPTS_DIR', value: '${BUILDSCRIPTS_DIR}'), string(name: 'MAJOR_MINOR_VERSION', value: '1.0'), booleanParam(name: 'executePrintTask', value: false)]
+            //build job: 'RootPipelineTemplate', parameters: [string(name: 'BUILDSCRIPTS_REPO_URL', value: '${BUILDSCRIPTS_REPO_URL}'), string(name: 'BUILDSCRIPTS_REPO_BRANCH', value: '${BUILDSCRIPTS_REPO_BRANCH}'), string(name: 'BUILDSCRIPTS_DIR', value: '${BUILDSCRIPTS_DIR}'), string(name: 'MAJOR_MINOR_VERSION', value: '1.0'), booleanParam(name: 'executePrintTask', value: false)]
 
-
-        checkout([$class: 'GitSCM', branches: [[name: '${SERVICE_REPO_BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHubCredentials', url: '${SERVICE_REPO_URL}']]])
-    }
-
-    stage('Build'){
-        sh './gradlew clean build'
-    }
-
-    stage('Test'){
-        junit '**/build/test-results/test/*.xml'
-    }
+            //build job: 'RootPipelineTemplate', parameters: [string(name: 'BUILDSCRIPTS_REPO_URL', value: 'https://github.com/rajeshhereforyou/JenkinsPipelineProject.git'), string(name: 'BUILDSCRIPTS_REPO_BRANCH', value: '${BUILDSCRIPTS_REPO_BRANCH}'), string(name: 'BUILDSCRIPTS_DIR', value: '${BUILDSCRIPTS_DIR}'), string(name: 'MAJOR_MINOR_VERSION', value: '1.0'), booleanParam(name: 'executePrintTask', value: false)]
 
 
+            checkout([$class: 'GitSCM', branches: [[name: '${SERVICE_REPO_BRANCH}']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'GitHubCredentials', url: '${SERVICE_REPO_URL}']]])
+        }
 
-//    stage('Latest Changes'){
-//        passedBuilds = []
-//
-//        lastSuccessfulBuild(passedBuilds, currentBuild);
-//
-//        for(int i=0; i<passedBuilds.size();i++){
-//            print(passedBuilds[i].getNumber());
-//        }
-//
-//        def changeLog = getChangeLog(passedBuilds)
-//        echo "changeLog is  ${changeLog}"
-//    }
+        stage('Build'){
+            sh './gradlew clean build'
+        }
 
-}
+        stage('Test'){
+            junit '**/build/test-results/test/*.xml'
+        }
+    } catch(e){
+        echo 'This will run only if failed'
 
-
-node('linuxslave'){
-    stage('Post Build Actions - Build chaining'){
+        // Since we're catching the exception in order to report on it,
+        // we need to re-throw it, to ensure that the build is marked as failed
+        throw e
+    }finally{
         echo "${currentBuild.result}"
         echo "${currentBuild.number}"
     }
 }
+
 
 /*node('linuxslave') {
     stage('TEsting different nodes'){
