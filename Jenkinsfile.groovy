@@ -40,7 +40,8 @@ node('linuxslave') {
 
             if(currentBuildResult != null && currentBuildResult.toString().equalsIgnoreCase("SUCCESS")){
                 echo "${currentBuildResult}"
-                build 'TestFreeStyle2'
+                def testVar = build('TestFreeStyle2')
+                echo "${testVar}"
             } else
                 echo "Build Failure"
         }
