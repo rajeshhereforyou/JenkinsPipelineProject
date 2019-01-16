@@ -42,7 +42,7 @@ node('linuxslave') {
         throw e
     }finally{
 
-        echo "${currentBuild.number1}"
+        echo "${currentBuild.getCurrentResult()}"
     }
 }
 
