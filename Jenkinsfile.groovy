@@ -54,6 +54,7 @@ node('linuxslave') {
 node('linuxslave'){
     stage('Post Build Actions - Build chaining'){
         echo "${currentBuild.result}"
+        echo "${currentBuild.number}"
     }
 }
 
