@@ -1,6 +1,6 @@
 node('linuxslave') {
 
-    try {
+
         echo ' Will run on the slave with name or tag specialSlave'
 
         env.APP_VERSION = VersionNumber([
@@ -34,16 +34,12 @@ node('linuxslave') {
         stage('Test'){
             junit '**/build/test-results/test/*.xml'
         }
-    } catch(e){
-        echo 'This will run only if failed'
 
-        // Since we're catching the exception in order to report on it,
-        // we need to re-throw it, to ensure that the build is marked as failed
-        throw e
-    }finally{
+        stage('Post Build Actions - Build chaining'){
+            echo "${currentBuild.getCurrentResult()}"
+        }
 
-        echo "${currentBuild.getCurrentResult()}"
-    }
+
 }
 
 
