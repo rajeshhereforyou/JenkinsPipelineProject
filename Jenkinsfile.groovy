@@ -40,6 +40,7 @@ node('linuxslave') {
 
             if(currentBuildResult != null && currentBuildResult.toString().equalsIgnoreCase("SUCCESS")){
                 echo "${currentBuildResult}"
+                build 'TestFreeStyle2'
             } else
                 echo "Build Failure"
         }
