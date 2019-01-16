@@ -28,7 +28,7 @@ node('linuxslave') {
         }
 
         stage('Build'){
-            sh './gradlew clean build'
+            sh './gradlew clean build1'
         }
 
         stage('Test'){
@@ -36,10 +36,13 @@ node('linuxslave') {
         }
 
         stage('Post Build Actions - Build chaining'){
-            echo "${currentBuild.getCurrentResult()}"
+            def currentBuildResult = "${currentBuild.getCurrentResult()}"
+
+            if(currentBuildResult != null && currentBuildResult.toString().equalsIgnoreCase("SUCCESS")){
+                echo "${currentBuildResult}"
+            } else
+                echo "Build Failure"
         }
-
-
 }
 
 
