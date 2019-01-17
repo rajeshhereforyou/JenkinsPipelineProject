@@ -45,7 +45,9 @@ node('linuxslave') {
             } else
                 echo "Build Failure"
 
-            echo "${env.RTSVersion}"
+            def buildNumber = Jenkins.instance.getItem('TestFreeStyle2').lastSuccessfulBuild.number
+
+            echo "${buildNumber}"
         }
 
     /*stage('GetLastSuccessfulBuldVersionOf'){
