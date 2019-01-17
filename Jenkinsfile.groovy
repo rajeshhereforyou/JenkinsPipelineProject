@@ -45,14 +45,14 @@ node('linuxslave') {
             } else
                 echo "Build Failure"
 
-            def buildNumber = Jenkins.instance.getItem('TestFreeStyle2').lastSuccessfulBuild.number
+            //def buildNumber = Jenkins.instance.getItem('TestFreeStyle2').lastSuccessfulBuild.number
 
-            echo "${buildNumber}"
+            //echo "${buildNumber}"
         }
 
-    /*stage('GetLastSuccessfulBuldVersionOf'){
+    stage('GetLastSuccessfulBuldVersionOf'){
         def jenkinsUrl = new URI(System.getenv("JENKINS_URL"))
-        def js = new JenkinsServer(jenkinsUrl, System.getenv("JenkinsUser"), System.getenv("JenkinsPwd"))
+        def js = new com.offbytwo.jenkins.JenkinsServer(jenkinsUrl, System.getenv("JenkinsUser"), System.getenv("JenkinsPwd"))
         def jobs = js.getJobs()
         def job = jobs.get(System.getenv("TestFreeStyle2"))
         def jobWithDetails = job.details()
@@ -60,7 +60,7 @@ node('linuxslave') {
         def lastBuildWithDetail = lastBuild.details()
 
         lastSuccessfulBuild(jobWithDetails, jobWithDetails.getLastBuild());
-    }*/
+    }
 }
 
 
