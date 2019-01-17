@@ -45,8 +45,33 @@ node('linuxslave') {
             } else
                 echo "Build Failure"
         }
+
+    stage('GetLastSuccessfulBuldVersionOf'){
+        def jenkinsUrl = new URI(System.getenv("JENKINS_URL"))
+        def js = new JenkinsServer(jenkinsUrl, System.getenv("JenkinsUser"), System.getenv("JenkinsPwd"))
+        def jobs = js.getJobs()
+        def job = jobs.get(System.getenv("TestFreeStyle2"))
+        def jobWithDetails = job.details()
+        def lastBuild = jobWithDetails.getLastBuild()
+        def lastBuildWithDetail = lastBuild.details()
+
+        lastSuccessfulBuild(jobWithDetails, jobWithDetails.getLastBuild());
+    }
 }
 
+
+def lastSuccessfulBuild(jobWithDetails, build) {
+    /*if ((build != null) && build.details() != null
+            && (build.details().getResult() == null
+            || !build.details().getResult().toString().equalsIgnoreCase("SUCCESS")
+    ) ) {
+        if(build.getNumber() >1){
+            lastSuccessfulBuild(passedBuildsWithDetails, jobWithDetails, jobWithDetails.getBuildByNumber(build.getNumber() -1))
+        }
+    }*/
+
+    println("build.details().getResult() :"+build.details().getResult())
+}
 
 /*node('linuxslave') {
     stage('TEsting different nodes'){
