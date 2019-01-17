@@ -44,9 +44,11 @@ node('linuxslave') {
                 echo "${testVar.getCurrentResult()}"
             } else
                 echo "Build Failure"
+
+            echo "${env.RTSVersion}"
         }
 
-    stage('GetLastSuccessfulBuldVersionOf'){
+    /*stage('GetLastSuccessfulBuldVersionOf'){
         def jenkinsUrl = new URI(System.getenv("JENKINS_URL"))
         def js = new JenkinsServer(jenkinsUrl, System.getenv("JenkinsUser"), System.getenv("JenkinsPwd"))
         def jobs = js.getJobs()
@@ -56,7 +58,7 @@ node('linuxslave') {
         def lastBuildWithDetail = lastBuild.details()
 
         lastSuccessfulBuild(jobWithDetails, jobWithDetails.getLastBuild());
-    }
+    }*/
 }
 
 
